@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package student;
+package canvas;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +17,7 @@ import jdbc.JdbcCon;
  *
  * @author Joel
  */
-public class StudentDAO {
+public class CanvasDAO {
     
     private final String GET_STUDENTS = "SELECT * FROM canvas";
     private final String GET_STUDENTS_BY_ID = "SELECT * FROM canvas WHERE studentid=?";
@@ -26,10 +26,10 @@ public class StudentDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
     
-    public List<StudentDTO> getStudents(){
+    public List<CanvasDTO> getStudents(){
         
-        StudentDTO student = null;
-        List<StudentDTO> students = new ArrayList<StudentDTO>();
+        CanvasDTO student = null;
+        List<CanvasDTO> students = new ArrayList<CanvasDTO>();
         JdbcCon db = new JdbcCon();
         
         try{
@@ -39,7 +39,7 @@ public class StudentDAO {
             rs = ps.executeQuery();
             
             while(rs.next()){
-                student = new StudentDTO();
+                student = new CanvasDTO();
                 student.setStudentId(rs.getString(1));
                 student.setOmdöme(rs.getString(2));
                 student.setNamn(rs.getString(3));
@@ -54,9 +54,9 @@ public class StudentDAO {
         return students;
     }
     
-    public StudentDTO getStudentById(String studentId){
+    public CanvasDTO getStudentById(String studentId){
         
-        StudentDTO student = null;
+        CanvasDTO student = null;
         JdbcCon db = new JdbcCon();
         
         try{
@@ -67,7 +67,7 @@ public class StudentDAO {
             rs = ps.executeQuery();
             
             if(rs.next()){
-                student = new StudentDTO();
+                student = new CanvasDTO();
                 student.setStudentId(rs.getString(1));
                 student.setOmdöme(rs.getString(2));
                 student.setNamn(rs.getString(3));

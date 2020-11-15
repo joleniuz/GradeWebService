@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package student;
+package canvas;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Joel
  */
-public class StudentDTO {
+public class CanvasDTO {
        
     private String studentId;
     private String omdöme;

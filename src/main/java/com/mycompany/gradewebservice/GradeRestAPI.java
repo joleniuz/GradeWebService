@@ -2,8 +2,8 @@
 package com.mycompany.gradewebservice;
 
 import java.net.URI;
-import student.StudentDTO;
-import student.StudentDAO;
+import canvas.CanvasDTO;
+import canvas.CanvasDAO;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,7 +27,7 @@ public class GradeRestAPI {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJson(){
-        List<StudentDTO> actors = new StudentDAO().getStudents();
+        List<CanvasDTO> actors = new CanvasDAO().getStudents();
         return Response.ok(actors).build();    
     }
     
@@ -36,7 +36,7 @@ public class GradeRestAPI {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStudentById(@PathParam("id") String studentId){
-        StudentDTO actor = new StudentDAO().getStudentById(studentId);
+        CanvasDTO actor = new CanvasDAO().getStudentById(studentId);
         return Response.ok(actor).build();
     }
     
@@ -45,7 +45,7 @@ public class GradeRestAPI {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStudentByQueryParam(@QueryParam("id") String studentId){
-        StudentDTO student = new StudentDAO().getStudentById(studentId);
+        CanvasDTO student = new CanvasDAO().getStudentById(studentId);
         return Response.ok(student).build();
     }
     
