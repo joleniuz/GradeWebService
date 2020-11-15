@@ -34,7 +34,7 @@ public class StudentDAO {
         
         try{
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            con = db.openConnection();
+            con = db.openConnection("canvasdb");
             ps = con.prepareStatement(GET_STUDENTS);
             rs = ps.executeQuery();
             
@@ -61,7 +61,7 @@ public class StudentDAO {
         
         try{
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            con = db.openConnection();
+            con = db.openConnection("canvasdb");
             ps = con.prepareStatement(GET_STUDENTS_BY_ID);
             ps.setString(1, studentId);
             rs = ps.executeQuery();

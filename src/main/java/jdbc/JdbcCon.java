@@ -13,15 +13,15 @@ public class JdbcCon {
     private Connection conn;
     private Statement statement;
     
-    public static Connection openConnection(){
+    //Tar in en string för namnet på databasen som ska användas. Ex: "canvasdb", "ladokdb"
+    public static Connection openConnection(String database){
         
         Connection conn = null;
         
         if(conn==null){
             
             try {
-            
-            String url       = "jdbc:mysql://127.0.0.1:3306/canvasdb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
+            String url       = "jdbc:mysql://127.0.0.1:3306/"+database+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
             String user      = "root";
             String password  = "sqladmin";
 

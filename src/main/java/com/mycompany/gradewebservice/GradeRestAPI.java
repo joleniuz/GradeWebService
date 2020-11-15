@@ -1,6 +1,7 @@
 
 package com.mycompany.gradewebservice;
 
+import java.net.URI;
 import student.StudentDTO;
 import student.StudentDAO;
 import javax.ws.rs.*;
@@ -48,4 +49,14 @@ public class GradeRestAPI {
         return Response.ok(student).build();
     }
     
+    @Path("/student")
+    @POST
+    public Response newActorByForm(@FormParam("id") String studentId,
+            @FormParam("omdöme") String omdöme, @FormParam("namn") String namn, @FormParam("kurskod") String kurskod){
+            
+        if(!(studentId.isEmpty())){
+            
+        }
+        return Response.created(URI.create("students/"+studentId)).build();
+    }
 }
