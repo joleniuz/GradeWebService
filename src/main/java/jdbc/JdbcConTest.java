@@ -5,8 +5,8 @@
  */
 package jdbc;
 
-import student.StudentDAO;
-import student.StudentDTO;
+import canvas.CanvasDAO;
+import canvas.CanvasDTO;
 import java.util.List;
 
 /**
@@ -22,9 +22,9 @@ public class JdbcConTest {
         
         JdbcCon db = new JdbcCon();
     
-        List<StudentDTO> student = new StudentDAO().getStudents();
+        List<CanvasDTO> student = new CanvasDAO().getStudents();
         
-        //StudentDTO actor = new StudentDAO().getStudentById(1);
+        //StudentDTO actor = new CanvasDAO().getStudentById(1);
         
     }
     
