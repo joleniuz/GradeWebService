@@ -22,7 +22,7 @@ public class CanvasAPI {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJson(){
+    public Response getStudentsJson(){
         List<CanvasDTO> actors = new CanvasDAO().getStudents();
         return Response.ok(actors).build();    
     }
