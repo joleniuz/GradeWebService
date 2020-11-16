@@ -13,7 +13,7 @@ public class JdbcCon {
     private Connection conn;
     private Statement statement;
     
-    //Tar in en string för namnet på databasen som ska användas. Ex: "canvasdb", "ladokdb"
+   
     public static Connection openConnection(String database){
         
         Connection conn = null;
