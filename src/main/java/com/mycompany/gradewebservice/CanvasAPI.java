@@ -4,6 +4,8 @@ package com.mycompany.gradewebservice;
 import java.net.URI;
 import canvas.CanvasDTO;
 import canvas.CanvasDAO;
+import epok.EpokDAO;
+import epok.EpokDTO;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -16,17 +18,11 @@ import java.util.List;
  * @author Joel
  */
 @Path("students")
-public class GradeRestAPI {
-    
-    @GET
-    @Path("test")
-    public String helloWorld(){
-        return "Ni kan ju det här!";
-    }
+public class CanvasAPI {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJson(){
+    public Response getStudentsJson(){
         List<CanvasDTO> actors = new CanvasDAO().getStudents();
         return Response.ok(actors).build();    
     }
@@ -59,4 +55,5 @@ public class GradeRestAPI {
         }
         return Response.created(URI.create("students/"+studentId)).build();
     }
+    
 }
