@@ -24,8 +24,8 @@ public class CanvasAPI {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStudentsJson(){
-        List<CanvasDTO> actors = new CanvasDAO().getStudents();
-        return Response.ok(actors).build();    
+        List<CanvasDTO> students = new CanvasDAO().getStudents();
+        return Response.ok(students).build();    
     }
     
     //exempel: http://localhost:8080/GradeWebService/resources/students/joeele-8

@@ -22,8 +22,8 @@ public class LadokDAO {
     
     private final String GET_GRADES = "SELECT * FROM ladok";
     private final String GET_GRADES_BY_PERSNR = "SELECT * FROM ladok WHERE persnr=?";
-    private final String ADD_GRADE = "INSERT INTO canvas (StudentId, Omdöme, Namn, Kurskod)"
-    + "VALUES(?, ?, ?, ?) ";
+    private final String ADD_GRADE = "INSERT INTO ladok (persnr, namn, kurskod, modul, datum, betyg, status)"
+    + "VALUES(?, ?, ?, ?, ?, ?, ?) ";
     
     Connection con = null;
     PreparedStatement ps = null;
@@ -81,7 +81,7 @@ public class LadokDAO {
                 grade.setDatum(rs.getString(5));
                 grade.setBetyg(rs.getString(6));
                 grade.setStatus(rs.getString(7));
-            
+                
             }
 
         }catch(Exception e){
@@ -110,15 +110,6 @@ public class LadokDAO {
             ps.setString(6, betyg);
             ps.setString(7, status);
             update = ps.executeUpdate();
-            
-            /*if(rs.next()){
-                student = new CanvasDTO();
-                student.setStudentId(rs.getString(1));
-                student.setOmdöme(rs.getString(2));
-                student.setNamn(rs.getString(3));
-                student.setKurskod(rs.getString(4));
-            
-            }*/
 
         }catch(Exception e){
             e.printStackTrace();

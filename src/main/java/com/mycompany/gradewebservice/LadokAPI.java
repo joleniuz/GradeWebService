@@ -43,8 +43,6 @@ public class LadokAPI {
         return Response.ok(grade).build();
     }
     
-    //Lektion 13, 12:30 POST i JAX-RS
-    //Alt ta emot Json, skicka Json Lektion 13 26:00
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
@@ -53,7 +51,7 @@ public class LadokAPI {
             @FormParam("modul") String modul, @FormParam("datum") String datum,
             @FormParam("betyg") String betyg, @FormParam("status") String status)throws URISyntaxException{
         if(!(persNr.isEmpty())){
-            LadokDTO grade = new LadokDAO().addGrade(persNr, namn, kurskod, modul, datum, betyg, status );      
+            LadokDTO grade = new LadokDAO().addGrade(persNr, namn, kurskod, modul, datum, betyg, status);      
             return Response.created(URI.create("ladok/"+persNr)).build();
         } else {
             return null; //Response.status(400).entity(new Message("Värden saknas")).build();

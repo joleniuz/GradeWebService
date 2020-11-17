@@ -99,15 +99,6 @@ public class CanvasDAO {
             ps.setString(3, namn);
             ps.setString(4, kurskod);
             status = ps.executeUpdate();
-            
-            /*if(rs.next()){
-                student = new CanvasDTO();
-                student.setStudentId(rs.getString(1));
-                student.setOmdöme(rs.getString(2));
-                student.setNamn(rs.getString(3));
-                student.setKurskod(rs.getString(4));
-            
-            }*/
 
         }catch(Exception e){
             e.printStackTrace();
