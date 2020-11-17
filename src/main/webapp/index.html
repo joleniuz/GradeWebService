@@ -1,11 +1,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         <title>Home</title>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script>
     </head>
 <body>
+           <p> Välj åtgärd: </p>
+      <div id="app">
+ <ul>
+   <li v-for="x in todos">
+   {{ x.text }}
+   </li>
+  </ul>
+</div>
+
+<script>
+myObject = new Vue({
+    el: '#app',
+    data: {
+    todos: [
+        { text: 'Learn JavaScript' },
+        { text: 'Learn Vue.js' },
+        { text: 'Build Something Awesome' }
+        ]
+    }
+})
+</script>
         <p> Välj åtgärd: </p>
     <button 
         onclick="document.location='http://localhost:8080/GradeWebService/Registreraresultat.html'">Registrera resultat</button>
