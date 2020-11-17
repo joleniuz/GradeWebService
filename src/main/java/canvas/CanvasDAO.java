@@ -42,11 +42,11 @@ public class CanvasDAO {
             
             while(rs.next()){
                 student = new CanvasDTO();
-                student.setStudentId(rs.getString(1));
-                student.setOmdöme(rs.getString(2));
-                student.setNamn(rs.getString(3));
-                student.setKurskod(rs.getString(4));
-                student.setModul(rs.getString(5));
+                student.setStudentId(rs.getString(2));
+                student.setOmdöme(rs.getString(3));
+                student.setNamn(rs.getString(4));
+                student.setKurskod(rs.getString(5));
+                student.setModul(rs.getString(6));
                 students.add(student);
                   
             }
@@ -71,11 +71,11 @@ public class CanvasDAO {
             
             if(rs.next()){
                 student = new CanvasDTO();
-                student.setStudentId(rs.getString(1));
-                student.setOmdöme(rs.getString(2));
-                student.setNamn(rs.getString(3));
-                student.setKurskod(rs.getString(4));
-                student.setModul(rs.getString(5));
+                student.setStudentId(rs.getString(2));
+                student.setOmdöme(rs.getString(3));
+                student.setNamn(rs.getString(4));
+                student.setKurskod(rs.getString(5));
+                student.setModul(rs.getString(6));
             
             }
 
@@ -96,11 +96,11 @@ public class CanvasDAO {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             con = db.openConnection("canvasdb");
             ps = con.prepareStatement(ADD_STUDENT);
-            ps.setString(1, studentId);
-            ps.setString(2, omdöme);
-            ps.setString(3, namn);
-            ps.setString(4, kurskod);
-            ps.setString(5, modul);
+            ps.setString(2, studentId);
+            ps.setString(3, omdöme);
+            ps.setString(4, namn);
+            ps.setString(5, kurskod);
+            ps.setString(6, modul);
             
             status = ps.executeUpdate();
 

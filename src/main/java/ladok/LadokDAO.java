@@ -43,13 +43,13 @@ public class LadokDAO {
             
             while(rs.next()){
                 grade = new LadokDTO();
-                grade.setPersonNr(rs.getString(1));
-                grade.setNamn(rs.getString(2));
-                grade.setKurskod(rs.getString(3));
-                grade.setModul(rs.getString(4));
-                grade.setDatum(rs.getString(5));
-                grade.setBetyg(rs.getString(6));
-                grade.setStatus(rs.getString(7));
+                grade.setPersonNr(rs.getString(2));
+                grade.setNamn(rs.getString(3));
+                grade.setKurskod(rs.getString(4));
+                grade.setModul(rs.getString(5));
+                grade.setDatum(rs.getString(6));
+                grade.setBetyg(rs.getString(7));
+                grade.setStatus(rs.getString(8));
                 grades.add(grade);
                   
             }
@@ -74,13 +74,13 @@ public class LadokDAO {
             
             if(rs.next()){
                 grade = new LadokDTO();
-                grade.setPersonNr(rs.getString(1));
-                grade.setNamn(rs.getString(2));
-                grade.setKurskod(rs.getString(3));
-                grade.setModul(rs.getString(4));
-                grade.setDatum(rs.getString(5));
-                grade.setBetyg(rs.getString(6));
-                grade.setStatus(rs.getString(7));
+                grade.setPersonNr(rs.getString(2));
+                grade.setNamn(rs.getString(3));
+                grade.setKurskod(rs.getString(4));
+                grade.setModul(rs.getString(5));
+                grade.setDatum(rs.getString(6));
+                grade.setBetyg(rs.getString(7));
+                grade.setStatus(rs.getString(8));
                 
             }
 
@@ -102,13 +102,13 @@ public class LadokDAO {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             con = db.openConnection("ladokdb");
             ps = con.prepareStatement(ADD_GRADE);
-            ps.setString(1, persNr);
-            ps.setString(2, namn);
-            ps.setString(3, kurskod);
-            ps.setString(4, modul);
-            ps.setString(5, datum);
-            ps.setString(6, betyg);
-            ps.setString(7, status);
+            ps.setString(2, persNr);
+            ps.setString(3, namn);
+            ps.setString(4, kurskod);
+            ps.setString(5, modul);
+            ps.setString(6, datum);
+            ps.setString(7, betyg);
+            ps.setString(8, status);
             update = ps.executeUpdate();
 
         }catch(Exception e){
