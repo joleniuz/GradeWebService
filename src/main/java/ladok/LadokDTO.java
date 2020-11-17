@@ -11,7 +11,6 @@ package ladok;
  */
 public class LadokDTO {
     
-    private String betygId;
     private String personNr;
     private String namn;
     private String kurskod;
@@ -19,14 +18,6 @@ public class LadokDTO {
     private String datum;
     private String betyg;
     private String status;
-
-    public String getBetygId() {
-        return betygId;
-    }
-
-    public void setBetygId(String betygId) {
-        this.betygId = betygId;
-    }
     
     public String getPersonNr() {
         return personNr;
