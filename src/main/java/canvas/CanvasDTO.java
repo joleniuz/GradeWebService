@@ -18,6 +18,7 @@ public class CanvasDTO {
     private String omdöme;
     private String namn;
     private String kurskod;
+    private String modul;
 
     public String getCanvasId() {
         return canvasId;
@@ -59,4 +60,12 @@ public class CanvasDTO {
         this.kurskod = kurskod;
     }
 
+    public String getModul() {
+        return modul;
+    }
+
+    public void setModul(String modul) {
+        this.modul = modul;
+    }
+    
 }

@@ -21,8 +21,8 @@ public class CanvasDAO {
     
     private final String GET_STUDENTS = "SELECT * FROM canvas";
     private final String GET_STUDENTS_BY_ID = "SELECT * FROM canvas WHERE studentid=?";
-    private final String ADD_STUDENT = "INSERT INTO canvas (CanvasId, StudentId, Omdöme, Namn, Kurskod)"
-            + "VALUES(?, ?, ?, ?, ?) ";
+    private final String ADD_STUDENT = "INSERT INTO canvas (CanvasId, StudentId, Omdöme, Namn, Kurskod, Modul)"
+            + "VALUES(?, ?, ?, ?, ?, ?) ";
     
     Connection con = null;
     PreparedStatement ps = null;
@@ -47,6 +47,7 @@ public class CanvasDAO {
                 student.setOmdöme(rs.getString(3));
                 student.setNamn(rs.getString(4));
                 student.setKurskod(rs.getString(5));
+                student.setModul(rs.getString(6));
                 students.add(student);
                   
             }
@@ -76,6 +77,7 @@ public class CanvasDAO {
                 student.setOmdöme(rs.getString(3));
                 student.setNamn(rs.getString(4));
                 student.setKurskod(rs.getString(5));
+                student.setModul(rs.getString(6));
             
             }
 
@@ -86,7 +88,7 @@ public class CanvasDAO {
         return student;
     }
     
-    public CanvasDTO addStudent(String canvasId, String studentId, String omdöme, String namn,  String kurskod){
+    public CanvasDTO addStudent(String canvasId, String studentId, String omdöme, String namn,  String kurskod, String modul){
         
         CanvasDTO student = null;
         JdbcCon db = new JdbcCon();
@@ -101,6 +103,8 @@ public class CanvasDAO {
             ps.setString(3, omdöme);
             ps.setString(4, namn);
             ps.setString(5, kurskod);
+            ps.setString(5, modul);
+            
             status = ps.executeUpdate();
 
         }catch(Exception e){
