@@ -51,11 +51,11 @@ public class CanvasAPI {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response newStudentByForm(@FormParam("canvasid") String canvasId, @FormParam("studentid") String studentId,
+    public Response newStudentByForm(@FormParam("studentid") String studentId,
             @FormParam("omdöme") String omdöme, @FormParam("namn") String namn, @FormParam("modul") String modul,
             @FormParam("kurskod") String kurskod)throws URISyntaxException{
         if(!(studentId.isEmpty())){
-            CanvasDTO student = new CanvasDAO().addStudent(canvasId, studentId, omdöme, namn, kurskod, modul);      
+            CanvasDTO student = new CanvasDAO().addStudent(studentId, omdöme, namn, kurskod, modul);      
             return Response.created(URI.create("students/"+studentId)).build();
         } else {
             return null; //Response.status(400).entity(new Message("Värden saknas")).build();

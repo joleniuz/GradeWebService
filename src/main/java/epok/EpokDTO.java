@@ -11,18 +11,8 @@ package epok;
  */
 public class EpokDTO {
     
-    private String modulId;
     private String kurskod;
     private String modul;
-
-    public String getModulId() {
-        return modulId;
-    }
-
-    public void setModulId(String modulId) {
-        this.modulId = modulId;
-    }
-    
 
     public String getKurskod() {
         return kurskod;

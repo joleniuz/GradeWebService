@@ -39,9 +39,8 @@ public class EpokDAO {
             
             while(rs.next()){
                 module = new EpokDTO();
-                module.setModulId(rs.getString(1));
-                module.setKurskod(rs.getString(2));
-                module.setModul(rs.getString(3));
+                module.setKurskod(rs.getString(1));
+                module.setModul(rs.getString(2));
                 modules.add(module);
                   
             }
