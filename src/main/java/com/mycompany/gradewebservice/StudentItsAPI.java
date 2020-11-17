@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response;
  *
  * @author Joel
  */
-@Path("/persinfo")
+@Path("persinfo")
 public class StudentItsAPI {
     
     @GET

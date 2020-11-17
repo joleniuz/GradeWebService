@@ -21,6 +21,8 @@ public class CanvasDAO {
     
     private final String GET_STUDENTS = "SELECT * FROM canvas";
     private final String GET_STUDENTS_BY_ID = "SELECT * FROM canvas WHERE studentid=?";
+    private final String ADD_STUDENT = "INSERT INTO canvas (StudentId, Omdöme, Namn, Kurskod)"
+            + "VALUES(?, ?, ?, ?) ";
     
     Connection con = null;
     PreparedStatement ps = null;
@@ -78,6 +80,31 @@ public class CanvasDAO {
         }catch(Exception e){
             e.printStackTrace();
         }
+        
+        return student;
+    }
+    
+    public CanvasDTO addStudent(String studentId, String omdöme, String namn,  String kurskod){
+        
+        CanvasDTO student = null;
+        JdbcCon db = new JdbcCon();
+        int status = 0;
+        
+        try{
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            con = db.openConnection("canvasdb");
+            ps = con.prepareStatement(ADD_STUDENT);
+            ps.setString(1, studentId);
+            ps.setString(2, omdöme);
+            ps.setString(3, namn);
+            ps.setString(4, kurskod);
+            status = ps.executeUpdate();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        
         
         return student;
     }
