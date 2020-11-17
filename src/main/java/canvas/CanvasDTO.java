@@ -12,12 +12,21 @@ import java.util.List;
  * @author Joel
  */
 public class CanvasDTO {
-       
+    
+    private String canvasId;   
     private String studentId;
     private String omdöme;
     private String namn;
     private String kurskod;
 
+    public String getCanvasId() {
+        return canvasId;
+    }
+
+    public void setCanvasId(String canvasId) {
+        this.canvasId = canvasId;
+    }
+    
     public String getStudentId() {
         return studentId;
     }
