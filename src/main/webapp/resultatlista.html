@@ -22,20 +22,26 @@ and open the template in the editor.
                 <table class="table table-hover table-dark">
                     <thead>
                         <tr>
+                            <th scope="col">Personnummer</th>
+                            <th scope="col">Namn</th>
+                            <th scope="col">Modul</th>
+                            <th scope="col">Kurskod</th>
                             <th scope="col">Betyg</th>
                             <th scope="col">Datum</th>
-                            <th scope="col">Inlämning</th>
-                            <th scope="col">Namn</th>
-                            <th scope="col">Personnummer</th>
+                            <th scope="col">Status</th>
+
+                            
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="actors in actors">
-                            <td>{{ actors.status}}</td>
+                            <td>{{ actors.personNr}}</td>
+                            <td>{{ actors.namn}}</td>
+                            <td>{{ actors.modul}}</td>
+                            <td>{{ actors.kurskod}}</td>
                             <td>{{ actors.betyg}}</td>
                             <td>{{ actors.datum}}</td>
-                            <td>{{ actors.kurskod}}</td>
-                            <td>{{ actors.namn}}</td>
+                            <td>{{ actors.status}}</td>
                         </tr>    
                     </tbody> 
                 </table>
