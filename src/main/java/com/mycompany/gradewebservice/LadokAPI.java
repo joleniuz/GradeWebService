@@ -46,12 +46,12 @@ public class LadokAPI {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response newGradeByForm(@FormParam("persnr") String persNr,
+    public Response newGradeByForm(@FormParam("betygid") String betygId, @FormParam("persnr") String persNr,
             @FormParam("namn") String namn, @FormParam("kurskod") String kurskod,
             @FormParam("modul") String modul, @FormParam("datum") String datum,
             @FormParam("betyg") String betyg, @FormParam("status") String status)throws URISyntaxException{
         if(!(persNr.isEmpty())){
-            LadokDTO grade = new LadokDAO().addGrade(persNr, namn, kurskod, modul, datum, betyg, status);      
+            LadokDTO grade = new LadokDAO().addGrade(betygId, persNr, namn, kurskod, modul, datum, betyg, status);      
             return Response.created(URI.create("ladok/"+persNr)).build();
         } else {
             return null; //Response.status(400).entity(new Message("Värden saknas")).build();
