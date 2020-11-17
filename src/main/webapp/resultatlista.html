@@ -22,18 +22,20 @@ and open the template in the editor.
                 <table class="table table-hover table-dark">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">Betyg</th>
+                            <th scope="col">Datum</th>
+                            <th scope="col">Inlämning</th>
                             <th scope="col">Namn</th>
-                            <th scope="col">Omdöme</th>
-                            <th scope="col">Kurs</th>
+                            <th scope="col">Personnummer</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="actors in actors">
-                            <td>{{ actors.studentId}}</td>
-                            <td>{{ actors.namn}}</td>
-                            <td>{{ actors.omdöme}}</td>
+                            <td>{{ actors.status}}</td>
+                            <td>{{ actors.betyg}}</td>
+                            <td>{{ actors.datum}}</td>
                             <td>{{ actors.kurskod}}</td>
+                            <td>{{ actors.namn}}</td>
                         </tr>    
                     </tbody> 
                 </table>
@@ -47,7 +49,7 @@ and open the template in the editor.
                     },
                     methods: {
                         loadData: function(){
-                            axios.get('http://localhost:8080/GradeWebService/resources/students')
+                            axios.get('http://localhost:8080/GradeWebService/resources/ladok/')
                                     .then(response => {
                                         this.actors =response.data;
                                 console.log(response);
