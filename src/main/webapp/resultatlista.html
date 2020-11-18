@@ -11,14 +11,20 @@ and open the template in the editor.
        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
        <meta name="viewport" content="width=device=width, initial-scale=1.0"/>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"></script>
     </head>
     <body>   
         <button 
         onclick="document.location='http://localhost:8080/GradeWebService/index.html'"><-Tillbaka</button>
-        <h1> Vue.js - JavaScript Ramverk </h1>   
+        <h1> Vue.js - JavaScript Ramverk </h1>
         <div class="w3-container" id="app">
+            <select name="Val av kurs">
+                <option>Ladda in allt</option>
+                <option>D0031N</option>
+                <option>Placeholder3</option>
+            </select>
             <p><button v-on:click="loadData()">Ladda Data</button></p>
+            <p><button v-on:click="loadCourse()">Ladda Kurs D0031N</button></p>
                 <table class="w3-table w3-striped w3-bordered">
                     <thead>
                         <tr>
@@ -29,8 +35,6 @@ and open the template in the editor.
                             <th scope="col">Betyg</th>
                             <th scope="col">Datum</th>
                             <th scope="col">Status</th>
-
-                            
                         </tr>
                     </thead>
                     <tbody>
@@ -56,6 +60,16 @@ and open the template in the editor.
                     methods: {
                         loadData: function(){
                             axios.get('http://localhost:8080/GradeWebService/resources/ladok/')
+                                    .then(response => {
+                                        this.actors =response.data;
+                                console.log(response);
+                            })
+                             .catch(error => {
+                                console.log(error);
+                            });
+                        },
+                        loadCourse: function(){
+                            axios.get('http://localhost:8080/GradeWebService/resources/ladok/d0031n')
                                     .then(response => {
                                         this.actors =response.data;
                                 console.log(response);
