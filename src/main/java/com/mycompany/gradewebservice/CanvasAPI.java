@@ -4,14 +4,11 @@ package com.mycompany.gradewebservice;
 import java.net.URI;
 import canvas.CanvasDTO;
 import canvas.CanvasDAO;
-import epok.EpokDAO;
-import epok.EpokDTO;
 import java.net.URISyntaxException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.Produces;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,8 +56,6 @@ public class CanvasAPI {
             return Response.created(URI.create("students/"+studentId)).build();
         } else {
             return null; //Response.status(400).entity(new Message("Värden saknas")).build();
-        }
-        
-    }
-    
+        }   
+    } 
 }
