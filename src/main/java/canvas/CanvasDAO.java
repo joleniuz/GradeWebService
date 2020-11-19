@@ -25,6 +25,10 @@ public class CanvasDAO {
             + "VALUES(?, ?, ?, ?, ?) ";
     private final String GET_STUDENT_GRADES = "SELECT studentitsdb.studentits.idpersonnr, studentitsdb.studentits.studentid, studentitsdb.studentits.namn, canvasdb.canvas.kurskod, canvasdb.canvas.modul, canvasdb.canvas.omdöme\n" +
 "FROM canvasdb.canvas LEFT JOIN studentitsdb.studentits ON studentitsdb.studentits.studentid=canvasdb.canvas.studentid;";
+    private final String GET_STUDENT_GRADES2 = "SELECT studentitsdb.studentits.idpersonnr, studentitsdb.studentits.studentid, studentitsdb.studentits.namn,\n"
+            + "canvasdb.canvas.kurskod, canvasdb.canvas.modul, canvasdb.canvas.omdöme,\n"
+            + "ladokdb.ladok.Betyg, ladokdb.ladok.Datum, ladokdb.ladok.status FROM canvasdb.canvas LEFT JOIN studentitsdb.studentits ON studentitsdb.studentits.studentid=canvasdb.canvas.studentid\n"
+            + "LEFT JOIN ladokdb.ladok ON studentitsdb.studentits.idPersonNr= ladokdb.ladok.PersNr;";
     private final String POST_STUDENT_GRADES = "INSERT INTO ladokdb.ladok (persnr, namn, kurskod, modul, datum, betyg, status)\n" +
 "VALUES(?, ?, ?, ?, ?, ?, ?);";
     Connection con = null;
@@ -124,7 +128,7 @@ public class CanvasDAO {
         try{
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             con = db.openConnection("canvasdb");
-            ps = con.prepareStatement(GET_STUDENT_GRADES);
+            ps = con.prepareStatement(GET_STUDENT_GRADES2);
             rs = ps.executeQuery();
             
             while(rs.next()){
@@ -135,8 +139,9 @@ public class CanvasDAO {
                 studentGrade.setKurskod(rs.getString(4));
                 studentGrade.setModul(rs.getString(5));
                 studentGrade.setOmdöme(rs.getString(6));
-                //studentGrade.setBetyg(rs.getString(7));
-                //studentGrade.setStatusBetyg(rs.getString(8));
+                studentGrade.setBetyg(rs.getString(7));
+                studentGrade.setDatum(rs.getString(8));
+                studentGrade.setStatusBetyg(rs.getString(9));
                 studentGrades.add(studentGrade);
 
                   
