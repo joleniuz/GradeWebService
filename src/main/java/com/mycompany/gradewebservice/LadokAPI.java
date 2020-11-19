@@ -31,7 +31,7 @@ public class LadokAPI {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getGradesJson(){
         List<LadokDTO> students = new LadokDAO().getGrades();
-        return Response.ok(students).build();    
+        return Response.ok(students).build();
     }
     
     //exempel: http://localhost:8080/GradeWebService/resources/ladok/XXXXXXXXXX

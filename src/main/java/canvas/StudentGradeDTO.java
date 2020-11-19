@@ -19,6 +19,15 @@ public class StudentGradeDTO {
     private String omdöme;
     private String betyg;
     private String statusBetyg;
+    private String datum;
+
+    public String getDatum() {
+        return datum;
+    }
+
+    public void setDatum(String datum) {
+        this.datum = datum;
+    }
 
     public String getStudId() {
         return studId;
