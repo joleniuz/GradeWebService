@@ -35,14 +35,23 @@ public class LadokAPI {
     }
     
     //exempel: http://localhost:8080/GradeWebService/resources/ladok/XXXXXXXXXX
-    @Path("{persnr}")
+    /* @Path("{persnr}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getGradeByPersNr(@PathParam("persnr") String persNr){
         LadokDTO grade = new LadokDAO().getGradeByPersNr(persNr);
         return Response.ok(grade).build();
     }
-    
+*/
+    //exempel: http://localhost:8080/GradeWebService/resources/ladok/D0031N ex..
+    @Path("{kurskod}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getGradeByKurskod(@PathParam("kurskod") String kurskod){
+        List<LadokDTO> grade = new LadokDAO().getGradesByCourse(kurskod);
+        return Response.ok(grade).build();
+    }
+
     //exempel: http://localhost:8080/GradeWebService/resources/ladok/
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
