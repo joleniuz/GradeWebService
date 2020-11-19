@@ -38,7 +38,7 @@ and open the template in the editor.
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="actors in actors">
+                        <tr v-for="actors in actors" v-if="actors.betyg !== null">
                             <td>{{ actors.personNr}}</td>
                             <td>{{ actors.namn}}</td>
                             <td>{{ actors.modul}}</td>
