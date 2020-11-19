@@ -27,6 +27,7 @@ public class CanvasDAO {
 "FROM canvasdb.canvas LEFT JOIN studentitsdb.studentits ON studentitsdb.studentits.studentid=canvasdb.canvas.studentid;";
     private final String ADD_STUDENT_GRADE = "INSERT INTO ladokdb.ladok (persnr, namn, kurskod, modul, datum, betyg, status)\n" +
 "VALUES(?, ?, ?, ?, ?, ?, ?);";
+    
     Connection con = null;
     //Connection con2 = null;
     PreparedStatement ps = null;
