@@ -21,6 +21,14 @@ public class StudentGradeDTO {
     private String datum;
     private String statusBetyg;
 
+    public String getDatum() {
+        return datum;
+    }
+
+    public void setDatum(String datum) {
+        this.datum = datum;
+    }
+
     public String getStudId() {
         return studId;
     }
@@ -84,13 +92,4 @@ public class StudentGradeDTO {
     public void setBetyg(String betyg) {
         this.betyg = betyg;
     }
-
-    public String getDatum() {
-        return datum;
-    }
-
-    public void setDatum(String datum) {
-        this.datum = datum;
-    }
-    
 }

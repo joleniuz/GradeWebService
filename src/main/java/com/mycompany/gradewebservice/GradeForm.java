@@ -36,16 +36,24 @@ public class GradeForm {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postStudentGradesForm(@FormParam("persnr") String persNr,
-            @FormParam("studid") String studId, @FormParam("namn") String namn,
-            @FormParam("kurskod") String kurskod, @FormParam("modul") String modul,
-            @FormParam("omdöme") String omdöme, @FormParam("betyg") String betyg,
+            @FormParam("namn") String namn, @FormParam("kurskod") String kurskod,
+            @FormParam("modul") String modul, @FormParam("betyg") String betyg,
             @FormParam("statusBetyg") String statusBetyg, @FormParam("datum") String datum){
         if(!(persNr.isEmpty())){
-            List <StudentGradeDTO> grades = new CanvasDAO().postStudentGrades(persNr, namn, kurskod, modul, datum, betyg, statusBetyg);
+            StudentGradeDTO grade = new CanvasDAO().addGrade(persNr, namn, kurskod, modul, datum, betyg, statusBetyg);
             return Response.created(URI.create("grades/"+persNr)).build();
         }
         else{
             return null;
         }
-    } 
+    }
+    
+    /*@POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void Response(List<StudentGradeDTO> grades){
+            List <StudentGradeDTO> hej = new CanvasDAO().postStudentGrades();
+            //return Response.created(URI.create("grades/")).build();
+        
+    } */
 }

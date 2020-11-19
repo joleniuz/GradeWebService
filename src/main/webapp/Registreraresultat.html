@@ -1,39 +1,154 @@
 
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
+<!--https://www.webslesson.info/2020/05/dynamic-dependent-dropdown-in-vuejs-using-php.html-->
+<!--http://aspsolution.net/Code/7/5030/how-to-insert-data-in-Database-using-Vue-js/-->
+<!--https://www.youtube.com/watch?v=1vbpBDWu1AQ&ab_channel=CodingTheSmartWay.com-->
+
 <html>
     <head>
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <title>Registrera resultat</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
  
 <body>
-   <div id="app_loops" class="experiment-block">
-    <ol>
-        <li v-for="todo in todos"> {{ todo.text }} </li>
-    </ol>
-</div>
+    <button 
+        onclick="document.location='http://localhost:8080/GradeWebService/index.html'"><-Tillbaka</button>  
+   <br/>
+   <h3 align="center">Registrera resultat med vue.js</h3>
+   <br/>
 
+      <div class="panel panel-primary">
+        <div class="panel-heading">GET Request students</div>
+        <div class="panel-body">
+          <button class="btn btn-primary" onclick="performGetRequest1()">Get Students</button>
+          <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
+          <div class="panel-body" id="getResult1"></div>
+        </div>
+      </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">GET Request with Paramaters</div>
+        <div class="panel-body">
+          <input type="text" class="form-control" Id="studentId" placeholder="student ID ..."/><br/>
+          <button class="btn btn-primary" onclick="performGetRequest2()">Get Student</button>
+          <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
+          <div class="panel-body" id="getResult2"></div>
+        </div>
+      </div>
+       <div class="panel panel-primary">
+        <div class="panel-heading">POST Request</div>
+        <div class="panel-body">
+          <form class="form-inline" id="todoInputForm" method="POST" >
+            <div class="form-group">
+              <input type="text" class="form-control"  id="studentid" placeholder="Student id ...">
+              <input type="text" class="form-control"  id="omdöme" placeholder="Omdöme ...">
+              <input type="text" class="form-control"  id="namn" placeholder="Namn ...">
+              <input type="text" class="form-control"  id="modul" placeholder="Modul ...">
+              <input type="text" class="form-control"  id="kurskod" placeholder="Kurskod ...">
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </form><br/>
+          <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
+          <div class="panel-body" id="postResult"></div>
+        </div>
+      </div>
+   
+       
 <script>
-    new Vue(
-        {
-            el: '#app_loops',
-            data: {
-                todos: [
-                    {text: 'Learn JavaScript'},
-                    {text: 'Learn Vue'},
-                    {text: 'Build something awesome'},
-                ],
-            }
-        });
+ function performGetRequest1(){
+  var resultElement = document.getElementById('getResult1');
+  resultElement.innerHTML = '';
+
+  axios.get('http://localhost:8080/GradeWebService/resources/students/')
+    .then(function (response) {
+      resultElement.innerHTML = generateSuccessHTMLOutput(response);
+    })
+    .catch(function (error) {
+      resultElement.innerHTML = generateErrorHTMLOutput(error);
+    });
+}
+
+function generateSuccessHTMLOutput(response) {
+  return  '<h4>Result:</h4>' +
+          '<h5>Status:</h5>' +
+          '<pre>' + response.status + ' ' + response.statusText + '</pre>' +
+          '<h5>Headers:</h5>' +
+          '<pre>' + JSON.stringify(response.headers, null, '\t') + '</pre>' +
+          '<h5>Data:</h5>' +
+          '<pre>' + JSON.stringify(response.data, null, '\t') + '</pre>';
+}
+
+function generateErrorHTMLOutput(error) {
+  return  '<h4>Result:</h4>' +
+          '<h5>Message:</h5>' +
+          '<pre>' + error.message + '</pre>' +
+          '<h5>Status:</h5>' +
+          '<pre>' + error.response.status + ' ' + error.response.statusText + '</pre>' +
+          '<h5>Headers:</h5>' +
+          '<pre>' + JSON.stringify(error.response.headers, null, '\t') + '</pre>' +
+          '<h5>Data:</h5>' +
+          '<pre>' + JSON.stringify(error.response.data, null, '\t') + '</pre>';
+}
+
+
+function performGetRequest2(){
+  var resultElement = document.getElementById('getResult2');
+  var Id = document.getElementById('studentId').value;
+  resultElement.innerHTML = '';
+
+  axios.get('http://localhost:8080/GradeWebService/resources/students/student', {
+    params: {
+      id: Id
+    }
+  })
+    .then(function (response) {
+      resultElement.innerHTML = generateSuccessHTMLOutput(response);
+    })
+    .catch(function (error) {
+      resultElement.innerHTML = generateErrorHTMLOutput(error);
+    });
+}
+
+document.getElementById('todoInputForm').addEventListener('submit', performPostRequest);
+
+function performPostRequest(e) {
+  var resultElement = document.getElementById('postResult');
+  var studentid = document.getElementById('studentid').value;
+  var omdöme = document.getElementById('omdöme').value;
+  var namn = document.getElementById('namn').value;
+  var modul = document.getElementById('modul').value;
+  var kurskod = document.getElementById('kurskod').value;
+  resultElement.innerHTML = '';
+
+  axios.post('http://localhost:8080/GradeWebService/resources/students/', { 
+     params: { 
+    studentid: studentid,
+    omdöme: omdöme,
+    namn: namn,
+    modul: modul,
+    kurskod: kurskod
+     }
+  })
+  .then(function(response) {
+    resultElement.innerHTML = generateSuccessHTMLOutput(response);
+  })
+  .catch(function(error) {
+    resultElement.innerHTML = generateErrorHTMLOutput(error);
+  })
+  e.preventDefault();
+}
+
+function clearOutput() {
+    var resultElement = document.getElementById('getResult1');
+    resultElement.innerHTML = '';
+    var resultElement = document.getElementById('getResult2');
+    resultElement.innerHTML = '';
+    var resultElement = document.getElementById('postResult');
+    resultElement.innerHTML = '';
+}
 </script>
 </body>
 
