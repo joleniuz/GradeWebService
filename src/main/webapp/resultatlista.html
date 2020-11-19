@@ -30,27 +30,61 @@ and open the template in the editor.
                         <tr>
                             <th scope="col">Personnummer</th>
                             <th scope="col">Namn</th>
+                            <th scope="col">Kurskod</th>
                             <th scope="col">Modul</th>
                             <th scope="col">Omdöme</th>
-                            <th scope="col">Kurskod</th>
                             <th scope="col">Betyg</th>
                             <th scope="col">Datum</th>
                             <th scope="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="grades in grades" v-if="grades.betyg !== null">
-                            <td>{{ grades.persNr}}</td>
-                            <td>{{ grades.namn}}</td>
-                            <td>{{ grades.modul}}</td>
-                            <td>{{ grades.omdöme}}</td>
-                            <td>{{ grades.kurskod}}</td>
-                            <td>{{ grades.betyg}}</td>
-                            <td>{{ grades.datum}}</td>
-                            <td>{{ grades.status}}</td>
-                        </tr>    
+
+                        <tr v-for="counter in grades" v-if="counter.betyg === 'U' || counter.betyg === 'G' || counter.betyg === 'VG'">
+                            <td>{{ counter.persNr }}</td>
+                            <td>{{ counter.namn }}</td>
+                            <td>{{ counter.kurskod }}</td>
+                            <td>{{ counter.modul }}</td>
+                            <td>{{ counter.omdöme }}</td>
+                            <td>{{ counter.betyg }}</td>
+                            <td>{{ counter.datum }}</td>
+                            <td>{{ counter.statusBetyg }}</td>
+                        </tr>
+                        <tr v-else>
+                            <td>{{ counter.persNr}}</td>
+                            <td>{{ counter.namn}}</td>
+                            <td>{{ counter.kurskod}}</td>
+                            <td>{{ counter.modul}}</td>
+                            <td>{{ counter.omdöme}}</td>
+                            
+                            <td>
+                                <label for="dropdownGrade">Ej betygsatt</label>
+                                <select name="dropdownGrade" id="dropdownGrade">
+                                    <option>U</option>
+                                    <option>G</option>
+                                    <option>VG</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="date" value="Datum" size="10" maxlength="10"/>
+                            </td>
+                            <td>
+                                <select name="dropdownStatus">
+                                    <option>Attesterad</option>
+                                    <option>Klarmarkerad</option>
+                                    <option>Utkast</option>
+                                </select>
+                                <button>Skicka in</button>
+                            </td>
+                                                        
+                        </tr> 
                     </tbody> 
                 </table>
+            <div id="test" v-for="counter in grades" v-if="counter.betyg === 'VG'"></div>
+            <div v-else-if="counter.betyg === 'G'"></div>
+            <div v-else-if="counter.betyg === 'U'"> </div>
+            <div v-else>{{counter}}</div>
+
        </div>
             <script>
               
@@ -71,7 +105,17 @@ and open the template in the editor.
                             });
                         },
                         loadCourse: function(){
-                            axios.get('http://localhost:8080/GradeWebService/resources/gradeform/D0031N')
+                            axios.get('http://localhost:8080/GradeWebService/resources/ladok/d0031n')
+                                    .then(response => {
+                                        this.grades =response.data;
+                                console.log(response);
+                            })
+                             .catch(error => {
+                                console.log(error);
+                            });
+                        },
+                        insertGrade: function(){
+                            axios.get('http://localhost:8080/GradeWebService/resources/ladok/d0031n')
                                     .then(response => {
                                         this.grades =response.data;
                                 console.log(response);

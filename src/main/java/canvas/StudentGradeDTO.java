@@ -18,8 +18,8 @@ public class StudentGradeDTO {
     private String modul;
     private String omdöme;
     private String betyg;
-    private String statusBetyg;
     private String datum;
+    private String statusBetyg;
 
     public String getDatum() {
         return datum;
@@ -92,5 +92,4 @@ public class StudentGradeDTO {
     public void setBetyg(String betyg) {
         this.betyg = betyg;
     }
-    
 }
