@@ -25,11 +25,7 @@ public class CanvasDAO {
             + "VALUES(?, ?, ?, ?, ?) ";
     private final String GET_STUDENT_GRADES = "SELECT studentitsdb.studentits.idpersonnr, studentitsdb.studentits.studentid, studentitsdb.studentits.namn, canvasdb.canvas.kurskod, canvasdb.canvas.modul, canvasdb.canvas.omdöme\n" +
 "FROM canvasdb.canvas LEFT JOIN studentitsdb.studentits ON studentitsdb.studentits.studentid=canvasdb.canvas.studentid;";
-    private final String GET_STUDENT_GRADES2 = "SELECT studentitsdb.studentits.idpersonnr, studentitsdb.studentits.studentid, studentitsdb.studentits.namn,\n"
-            + "canvasdb.canvas.kurskod, canvasdb.canvas.modul, canvasdb.canvas.omdöme,\n"
-            + "ladokdb.ladok.Betyg, ladokdb.ladok.Datum, ladokdb.ladok.status FROM canvasdb.canvas LEFT JOIN studentitsdb.studentits ON studentitsdb.studentits.studentid=canvasdb.canvas.studentid\n"
-            + "LEFT JOIN ladokdb.ladok ON studentitsdb.studentits.idPersonNr= ladokdb.ladok.PersNr;";
-    private final String POST_STUDENT_GRADES = "INSERT INTO ladokdb.ladok (persnr, namn, kurskod, modul, datum, betyg, status)\n" +
+    private final String ADD_STUDENT_GRADE = "INSERT INTO ladokdb.ladok (persnr, namn, kurskod, modul, datum, betyg, status)\n" +
 "VALUES(?, ?, ?, ?, ?, ?, ?);";
     Connection con = null;
     //Connection con2 = null;
@@ -128,7 +124,7 @@ public class CanvasDAO {
         try{
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             con = db.openConnection("canvasdb");
-            ps = con.prepareStatement(GET_STUDENT_GRADES2);
+            ps = con.prepareStatement(GET_STUDENT_GRADES);
             rs = ps.executeQuery();
             
             while(rs.next()){
@@ -139,9 +135,8 @@ public class CanvasDAO {
                 studentGrade.setKurskod(rs.getString(4));
                 studentGrade.setModul(rs.getString(5));
                 studentGrade.setOmdöme(rs.getString(6));
-                studentGrade.setBetyg(rs.getString(7));
-                studentGrade.setDatum(rs.getString(8));
-                studentGrade.setStatusBetyg(rs.getString(9));
+                //studentGrade.setBetyg(rs.getString(7));
+                //studentGrade.setStatusBetyg(rs.getString(8));
                 studentGrades.add(studentGrade);
 
                   
@@ -154,20 +149,61 @@ public class CanvasDAO {
         return studentGrades;     
     }
     
-    public List<StudentGradeDTO> postStudentGrades(String persnr, String namn, String kurskod, String modul, String datum, String betyg, String betygStatus){
+        public StudentGradeDTO addGrade(String persNr, String namn, String kurskod, String modul, String datum, String betyg, String betygStatus){
+        
+        StudentGradeDTO studentGrade = null;
+        JdbcCon db = new JdbcCon();
+        int status = 0;
+        System.out.println("1");
+        
+        try{
+            System.out.println("2");
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            con = db.openConnection("ladokdb");
+            //persnr, namn, kurskod, modul, datum, betyg, status
+            ps = con.prepareStatement(ADD_STUDENT_GRADE);
+            ps.setString(1, persNr);
+            ps.setString(2, namn);
+            ps.setString(3, kurskod);
+            ps.setString(4, modul);
+            ps.setString(5, datum);
+            ps.setString(6, betyg);
+            ps.setString(7, betygStatus);
+            
+            status = ps.executeUpdate();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+            System.out.println("hej");
+     
+        return studentGrade;
+    }
+    
+    /*public List<StudentGradeDTO> postStudentGrades(String persnr, String namn, String kurskod, String modul, String datum, String betyg, String betygStatus)
+    public List<StudentGradeDTO> postStudentGrades(){
         
         StudentGradeDTO studentGrade = null;
         List<StudentGradeDTO> studentGrades = new ArrayList<StudentGradeDTO>();
         JdbcCon db = new JdbcCon();
+        int status = 0;
         
         try{
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             con = db.openConnection("ladokdb");
             ps = con.prepareStatement(POST_STUDENT_GRADES);
-            rs = ps.executeQuery();
             
             while(rs.next()){
+                studentGrade = new StudentGradeDTO();
+                ps.setString(2, studentGrade.getPersNr());
+                ps.setString(3, studentGrade.getNamn());
+                ps.setString(4, studentGrade.getKurskod());
+                ps.setString(5, studentGrade.getModul());
+                ps.setString(6, studentGrade.getDatum());
+                ps.setString(7, studentGrade.getBetyg());
+                ps.setString(8, studentGrade.getStatusBetyg());
                 
+                status = ps.executeUpdate();
             }
             
         }catch(Exception e){
@@ -176,5 +212,5 @@ public class CanvasDAO {
         
         
         return null;
-    }
+    }*/
 }
