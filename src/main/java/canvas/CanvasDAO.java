@@ -159,10 +159,8 @@ public class CanvasDAO {
         StudentGradeDTO studentGrade = null;
         JdbcCon db = new JdbcCon();
         int status = 0;
-        System.out.println("1");
         
         try{
-            System.out.println("2");
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             con = db.openConnection("ladokdb");
             //persnr, namn, kurskod, modul, datum, betyg, status
@@ -180,7 +178,6 @@ public class CanvasDAO {
         }catch(Exception e){
             e.printStackTrace();
         }
-            System.out.println("hej");
      
         return studentGrade;
     }
