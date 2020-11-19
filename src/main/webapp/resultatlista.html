@@ -31,6 +31,7 @@ and open the template in the editor.
                             <th scope="col">Personnummer</th>
                             <th scope="col">Namn</th>
                             <th scope="col">Modul</th>
+                            <th scope="col">Omdöme</th>
                             <th scope="col">Kurskod</th>
                             <th scope="col">Betyg</th>
                             <th scope="col">Datum</th>
@@ -38,14 +39,15 @@ and open the template in the editor.
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="actors in actors" v-if="actors.betyg !== null">
-                            <td>{{ actors.personNr}}</td>
-                            <td>{{ actors.namn}}</td>
-                            <td>{{ actors.modul}}</td>
-                            <td>{{ actors.kurskod}}</td>
-                            <td>{{ actors.betyg}}</td>
-                            <td>{{ actors.datum}}</td>
-                            <td>{{ actors.status}}</td>
+                        <tr v-for="grades in grades" v-if="grades.betyg !== null">
+                            <td>{{ grades.persNr}}</td>
+                            <td>{{ grades.namn}}</td>
+                            <td>{{ grades.modul}}</td>
+                            <td>{{ grades.omdöme}}</td>
+                            <td>{{ grades.kurskod}}</td>
+                            <td>{{ grades.betyg}}</td>
+                            <td>{{ grades.datum}}</td>
+                            <td>{{ grades.status}}</td>
                         </tr>    
                     </tbody> 
                 </table>
@@ -55,13 +57,13 @@ and open the template in the editor.
                 new Vue({
                     el: '#app',
                     data: {
-                        actors: []
+                        grades: []
                     },
                     methods: {
                         loadData: function(){
-                            axios.get('http://localhost:8080/GradeWebService/resources/ladok/')
+                            axios.get('http://localhost:8080/GradeWebService/resources/gradeform')
                                     .then(response => {
-                                        this.actors =response.data;
+                                        this.grades =response.data;
                                 console.log(response);
                             })
                              .catch(error => {
@@ -69,9 +71,9 @@ and open the template in the editor.
                             });
                         },
                         loadCourse: function(){
-                            axios.get('http://localhost:8080/GradeWebService/resources/ladok/d0031n')
+                            axios.get('http://localhost:8080/GradeWebService/resources/gradeform/D0031N')
                                     .then(response => {
-                                        this.actors =response.data;
+                                        this.grades =response.data;
                                 console.log(response);
                             })
                              .catch(error => {
