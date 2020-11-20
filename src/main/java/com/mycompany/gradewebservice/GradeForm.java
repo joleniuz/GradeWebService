@@ -17,6 +17,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -32,6 +33,15 @@ public class GradeForm {
     public Response getGradesJson(){
         List<StudentGradeDTO> grades = new CanvasDAO().getStudentGrades(); 
         return Response.ok(grades).build();
+    }
+    
+    //exempel: http://localhost:8080/GradeWebService/resources/gradeform/student?studentid=joeele-8
+    @Path("/student")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStudentByQueryParam(@QueryParam("studentid") String studentId){
+        StudentGradeDTO student = new CanvasDAO().getStudentById(studentId);
+        return Response.ok(student).build();
     }
     
     //exempel: http://localhost:8080/GradeWebService/resources/gradeform/joeele-8
