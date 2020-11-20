@@ -39,7 +39,7 @@ public class GradeForm {
     @Path("/student")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getStudentByQueryParam(@QueryParam("studentid") String studentId){
+    public Response getStudentByQueryParam(@QueryParam("studid") String studentId){
         StudentGradeDTO student = new CanvasDAO().getStudentById(studentId);
         return Response.ok(student).build();
     }
@@ -54,7 +54,7 @@ public class GradeForm {
     }
     
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postStudentGradesForm(@FormParam("persnr") String persNr,
             @FormParam("namn") String namn, @FormParam("kurskod") String kurskod,
