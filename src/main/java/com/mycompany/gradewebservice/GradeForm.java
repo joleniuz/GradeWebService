@@ -44,7 +44,7 @@ public class GradeForm {
     }
     
     @POST
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postStudentGradesForm(@FormParam("persnr") String persNr,
             @FormParam("namn") String namn, @FormParam("kurskod") String kurskod,
