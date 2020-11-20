@@ -48,12 +48,4 @@ public class GradeForm {
         }
     }
     
-    /*@POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public void Response(List<StudentGradeDTO> grades){
-            List <StudentGradeDTO> hej = new CanvasDAO().postStudentGrades();
-            //return Response.created(URI.create("grades/")).build();
-        
-    } */
 }
