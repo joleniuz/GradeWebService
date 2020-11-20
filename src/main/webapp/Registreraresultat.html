@@ -62,7 +62,7 @@
   var resultElement = document.getElementById('getResult1');
   resultElement.innerHTML = '';
 
-  axios.get('http://localhost:8080/GradeWebService/resources/students/')
+  axios.get('http://localhost:8080/GradeWebService/resources/gradeform/')
     .then(function (response) {
       resultElement.innerHTML = generateSuccessHTMLOutput(response);
     })
@@ -99,9 +99,9 @@ function performGetRequest2(){
   var Id = document.getElementById('studentId').value;
   resultElement.innerHTML = '';
 
-  axios.get('http://localhost:8080/GradeWebService/resources/students/student', {
+  axios.get('http://localhost:8080/GradeWebService/resources/gradeform/studentid', {
     params: {
-      id: Id
+      studid: Id
     }
   })
     .then(function (response) {

@@ -26,7 +26,7 @@ public class CanvasAPI {
     }
     
     //exempel: http://localhost:8080/GradeWebService/resources/students/joeele-8
-    @Path("{id}")
+    /*@Path("{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStudentById(@PathParam("id") String studentId){
@@ -41,7 +41,7 @@ public class CanvasAPI {
     public Response getStudentByQueryParam(@QueryParam("id") String studentId){
         CanvasDTO student = new CanvasDAO().getStudentById(studentId);
         return Response.ok(student).build();
-    }
+    }*/
     
     //Lektion 13, 12:30 POST i JAX-RS
     //Alt ta emot Json, skicka Json Lektion 13 26:00

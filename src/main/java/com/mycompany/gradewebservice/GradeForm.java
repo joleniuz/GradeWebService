@@ -6,6 +6,7 @@
 package com.mycompany.gradewebservice;
 
 import canvas.CanvasDAO;
+import canvas.CanvasDTO;
 import canvas.StudentGradeDTO;
 import java.net.URI;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -30,6 +32,15 @@ public class GradeForm {
     public Response getGradesJson(){
         List<StudentGradeDTO> grades = new CanvasDAO().getStudentGrades(); 
         return Response.ok(grades).build();
+    }
+    
+    //exempel: http://localhost:8080/GradeWebService/resources/gradeform/joeele-8
+    @Path("{studentid}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStudentById(@PathParam("studentid") String studentId){
+        StudentGradeDTO student = new CanvasDAO().getStudentById(studentId);
+        return Response.ok(student).build();
     }
     
     @POST
