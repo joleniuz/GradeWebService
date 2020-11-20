@@ -51,13 +51,12 @@ and open the template in the editor.
                             <td>{{ counter.statusBetyg }}</td>
                         </tr>
                         <tr v-else>
-                            <td>{{ counter.persNr}}</td>
-                            <td>{{ counter.namn}}</td>
-                            <td>{{ counter.kurskod}}</td>
-                            <td>{{ counter.modul}}</td>
-                            <td>{{ counter.omdöme}}</td>
-                            
-                            <td>
+                            <td id="persNr">{{ counter.persNr}}</td>
+                            <td id="namn">{{ counter.namn}}</td>
+                            <td id="kurskod">{{ counter.kurskod}}</td>
+                            <td id="modul">{{ counter.modul}}</td>
+                            <td id="omdöme">{{ counter.omdöme}}</td>
+                            <td id="betyg">
                                 <label for="dropdownGrade">Ej betygsatt</label>
                                 <select name="dropdownGrade" id="dropdownGrade">
                                     <option>U</option>
@@ -65,16 +64,17 @@ and open the template in the editor.
                                     <option>VG</option>
                                 </select>
                             </td>
-                            <td>
-                                <input type="text" name="date" value="Datum" size="10" maxlength="10"/>
+                            <td id="datum">
+                                <input type="text" name="date" size="10" maxlength="10" placeholder="åååå-mm-dd" id="dateBox"/>
                             </td>
-                            <td>
-                                <select name="dropdownStatus">
+                            <td id="statusBetyg">
+                                <select name="dropdownStatus" id="dropdownStatus">
                                     <option>Attesterad</option>
                                     <option>Klarmarkerad</option>
                                     <option>Utkast</option>
                                 </select>
-                                <button>Skicka in</button>
+                                 
+                                <button v-on:click="getValues()">Skicka in</button>
                             </td>
                                                         
                         </tr> 
@@ -123,6 +123,19 @@ and open the template in the editor.
                              .catch(error => {
                                 console.log(error);
                             });
+                        }, getValues: function(){
+                            var dateBox = document.getElementById("dateBox").value;
+                            var statusBox = document.getElementById("dropdownStatus").value;
+                            var gradeSelect = document.getElementById("dropdownGrade").value;
+                            var namn = document.getElementById("namn").innerHTML.toString();
+                            var persNr = document.getElementById("persNr").innerHTML.toString();
+                            var kurskod = document.getElementById("kurskod").innerHTML.toString();
+                            var modul = document.getElementById("modul").innerHTML.toString();
+                            var omdöme = document.getElementById("omdöme").innerHTML.toString();
+                            var namn = document.getElementById("namn").innerHTML.toString();
+                            var namn = document.getElementById("namn").innerHTML.toString();
+                          
+                            alert(persNr+" "+namn+" "+kurskod+" "+modul+" "+omdöme+" "+gradeSelect+" "+dateBox+" "+statusBox);
                         }
                     }
                 });
