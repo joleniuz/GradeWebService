@@ -14,6 +14,7 @@
         <meta charset="UTF-8">
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        
     </head>
  
 <body>
@@ -45,11 +46,13 @@
         <div class="panel-body">
           <form class="form-inline" id="todoInputForm" method="POST" >
             <div class="form-group">
-              <input type="text" class="form-control"  id="studentid" placeholder="Student id ...">
-              <input type="text" class="form-control"  id="omdöme" placeholder="Omdöme ...">
+              <input type="text" class="form-control"  id="persNr" placeholder="Personnummer ...">
               <input type="text" class="form-control"  id="namn" placeholder="Namn ...">
-              <input type="text" class="form-control"  id="modul" placeholder="Modul ...">
               <input type="text" class="form-control"  id="kurskod" placeholder="Kurskod ...">
+              <input type="text" class="form-control"  id="modul" placeholder="Modul ...">
+              <input type="text" class="form-control"  id="betyg" placeholder="Betyg ...">
+              <input type="text" class="form-control"  id="statusBetyg" placeholder="Status för betyg ...">
+              <input type="text" class="form-control"  id="datum" placeholder="Datum ...">
             </div>
             <button type="submit" class="btn btn-primary">Send</button>
           </form><br/>
@@ -117,21 +120,24 @@ function performGetRequest2(){
 document.getElementById('todoInputForm').addEventListener('submit', performPostRequest);
 
 function performPostRequest(e) {
-  var resultElement = document.getElementById('postResult');
-  var studentid = document.getElementById('studentid').value;
-  var omdöme = document.getElementById('omdöme').value;
-  var namn = document.getElementById('namn').value;
-  var modul = document.getElementById('modul').value;
-  var kurskod = document.getElementById('kurskod').value;
+  var resultElement = document.getElementById('postResult') ;
+  var PerNR = document.getElementById('persNr');
+  var namn = document.getElementById('namn');
+  var kurskod = document.getElementById('kurskod');
+  var modul = document.getElementById('modul');
+  var statusbetyg = document.getElementById('statusBetyg');
+  var Datum = document.getElementById('datum');
   resultElement.innerHTML = '';
 
-  axios.post('http://localhost:8080/GradeWebService/resources/students/', { 
+
+  axios.post('http://localhost:8080/GradeWebService/resources/gradeform', { 
      params: { 
-    studentid: studentid,
-    omdöme: omdöme,
+    studentid: PerNR,
     namn: namn,
     modul: modul,
-    kurskod: kurskod
+    kurskod: kurskod,
+    statusBetyg: statusbetyg,
+    datum: Datum
      }
   })
   .then(function(response) {
