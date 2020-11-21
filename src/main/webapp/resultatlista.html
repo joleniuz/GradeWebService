@@ -133,6 +133,19 @@ and open the template in the editor.
                             var omdöme = document.getElementById("omdöme").innerHTML.toString();
                           
                             alert(persNr+" "+namn+" "+kurskod+" "+modul+" "+omdöme+" "+gradeSelect+" "+dateBox+" "+statusBox);
+                            axios.post('http://localhost:8080/GradeWebService/resources/gradeform',({ 
+                                params: { 
+                                persnr: persNr,
+                                namn: namn,
+                                modul: modul,
+                                kurskod: kurskod,
+                                statusBetyg: statusBox,
+                                datum: dateBox,
+                                betyg: gradeSelect,
+                                omdöme: omdöme
+                                }
+                            }))
+                            
                         }
                     }
                 });
