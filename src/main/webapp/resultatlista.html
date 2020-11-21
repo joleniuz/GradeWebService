@@ -25,61 +25,64 @@ and open the template in the editor.
             </select>
             <p><button v-on:click="loadData()">Ladda Data</button></p>
             <p><button v-on:click="loadCourse()">Ladda Kurs D0031N</button></p>
-                <table class="w3-table w3-striped w3-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Personnummer</th>
-                            <th scope="col">Namn</th>
-                            <th scope="col">Kurskod</th>
-                            <th scope="col">Modul</th>
-                            <th scope="col">Omdöme</th>
-                            <th scope="col">Betyg</th>
-                            <th scope="col">Datum</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <form method="post" action="">
+                    <table class="w3-table w3-striped w3-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Personnummer</th>
+                                <th scope="col">Namn</th>
+                                <th scope="col">Kurskod</th>
+                                <th scope="col">Modul</th>
+                                <th scope="col">Omdöme</th>
+                                <th scope="col">Betyg</th>
+                                <th scope="col">Datum</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="counter in grades" v-if="counter.betyg === 'U' || counter.betyg === 'G' || counter.betyg === 'VG'">
+                                <td>{{ counter.persNr }}</td>
+                                <td>{{ counter.namn }}</td>
+                                <td>{{ counter.kurskod }}</td>
+                                <td>{{ counter.modul }}</td>
+                                <td>{{ counter.omdöme }}</td>
+                                <td>{{ counter.betyg }}</td>
+                                <td>{{ counter.datum }}</td>
+                                <td>{{ counter.statusBetyg }}</td>
+                            </tr>
+                            <tr v-else>
+                                <td id="persNr">
+                                    <input type = "text" name="persnr"> <!--{{ counter.persNr}}-->
+                                </td>
+                                <td id="namn">{{ counter.namn}}</td>
+                                <td id="kurskod">{{ counter.kurskod}}</td>
+                                <td id="modul">{{ counter.modul}}</td>
+                                <td id="omdöme">{{ counter.omdöme}}</td>
+                                <td id="betyg">
+                                    <label for="dropdownGrade">Ej betygsatt</label>
+                                    <select name="dropdownGrade" id="dropdownGrade">
+                                        <option>U</option>
+                                        <option>G</option>
+                                        <option>VG</option>
+                                    </select>
+                                </td>
+                                <td id="datum">
+                                    <input type="text" name="date" size="10" maxlength="10" placeholder="åååå-mm-dd" id="dateBox"/>
+                                </td>
+                                <td id="statusBetyg">
+                                    <select name="dropdownStatus" id="dropdownStatus">
+                                        <option>Attesterad</option>
+                                        <option>Klarmarkerad</option>
+                                        <option>Utkast</option>
+                                    </select>
 
-                        <tr v-for="counter in grades" v-if="counter.betyg === 'U' || counter.betyg === 'G' || counter.betyg === 'VG'">
-                            <td>{{ counter.persNr }}</td>
-                            <td>{{ counter.namn }}</td>
-                            <td>{{ counter.kurskod }}</td>
-                            <td>{{ counter.modul }}</td>
-                            <td>{{ counter.omdöme }}</td>
-                            <td>{{ counter.betyg }}</td>
-                            <td>{{ counter.datum }}</td>
-                            <td>{{ counter.statusBetyg }}</td>
-                        </tr>
-                        <tr v-else>
-                            <td id="persNr">{{ counter.persNr}}</td>
-                            <td id="namn">{{ counter.namn}}</td>
-                            <td id="kurskod">{{ counter.kurskod}}</td>
-                            <td id="modul">{{ counter.modul}}</td>
-                            <td id="omdöme">{{ counter.omdöme}}</td>
-                            <td id="betyg">
-                                <label for="dropdownGrade">Ej betygsatt</label>
-                                <select name="dropdownGrade" id="dropdownGrade">
-                                    <option>U</option>
-                                    <option>G</option>
-                                    <option>VG</option>
-                                </select>
-                            </td>
-                            <td id="datum">
-                                <input type="text" name="date" size="10" maxlength="10" placeholder="åååå-mm-dd" id="dateBox"/>
-                            </td>
-                            <td id="statusBetyg">
-                                <select name="dropdownStatus" id="dropdownStatus">
-                                    <option>Attesterad</option>
-                                    <option>Klarmarkerad</option>
-                                    <option>Utkast</option>
-                                </select>
-                                 
-                                <button v-on:click="getValues()">Skicka in</button>
-                            </td>
-                                                        
-                        </tr> 
-                    </tbody> 
-                </table>
+                                    <button v-on:click="getValues()">Skicka in</button>
+                                </td>
+
+                            </tr> 
+                        </tbody> 
+                    </table>
+                </form>
 
        </div>
             <script>
