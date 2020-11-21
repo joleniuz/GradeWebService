@@ -68,19 +68,4 @@ public class GradeForm {
             return null;
         }
     }
-    
-
-    public static String stringToJson(String persNr, String namn, String kurskod, String modul, String datum, String betyg, String statusBetyg ) {
-        return String.format("{\"persNr\":\"%s\",\"namn\":\"%s\",\"kurskod\":\"%s\",\"modul\":\"%s\",\"datum\":\"%s\",\"betyg\":\"%s\",\"statusBetyg\":\"%s\"}",
-                             persNr, namn, kurskod, modul, datum, betyg, statusBetyg);
-    }
-
-    /*@POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public void Response(List<StudentGradeDTO> grades){
-            List <StudentGradeDTO> hej = new CanvasDAO().postStudentGrades();
-            //return Response.created(URI.create("grades/")).build();
-        
-    } */
 }

@@ -25,7 +25,6 @@ and open the template in the editor.
             </select>
             <p><button v-on:click="loadData()">Ladda Data</button></p>
             <p><button v-on:click="loadCourse()">Ladda Kurs D0031N</button></p>
-                <form method="post" action="">
                     <table class="w3-table w3-striped w3-bordered">
                         <thead>
                             <tr>
@@ -51,9 +50,7 @@ and open the template in the editor.
                                 <td>{{ counter.statusBetyg }}</td>
                             </tr>
                             <tr v-else>
-                                <td id="persNr">
-                                    <input type = "text" name="persnr"> <!--{{ counter.persNr}}-->
-                                </td>
+                                <td id="persNr">{{counter.persNr}}</td>
                                 <td id="namn">{{ counter.namn}}</td>
                                 <td id="kurskod">{{ counter.kurskod}}</td>
                                 <td id="modul">{{ counter.modul}}</td>
@@ -82,8 +79,6 @@ and open the template in the editor.
                             </tr> 
                         </tbody> 
                     </table>
-                </form>
-
        </div>
             <script>
               
@@ -132,21 +127,24 @@ and open the template in the editor.
                             var modul = document.getElementById("modul").innerHTML.toString();
                             var omdöme = document.getElementById("omdöme").innerHTML.toString();
                           
-                            alert(persNr+" "+namn+" "+kurskod+" "+modul+" "+omdöme+" "+gradeSelect+" "+dateBox+" "+statusBox);
-                            axios.post('http://localhost:8080/GradeWebService/resources/gradeform',({ 
-                                params: { 
-                                persnr: persNr,
-                                namn: namn,
-                                modul: modul,
-                                kurskod: kurskod,
-                                statusBetyg: statusBox,
-                                datum: dateBox,
-                                betyg: gradeSelect,
-                                omdöme: omdöme
-                                }
-                            }))
+                            alert(persNr+" "+namn+" "+kurskod+" "+modul+" "+gradeSelect+" "+dateBox+" "+statusBox);
                             
-                        }
+                            const params = new URLSearchParams();                      
+                            params.append('persnr', persNr);
+                            params.append('namn', namn);
+                            params.append('kurskod', kurskod);
+                            params.append('modul', modul);
+                            params.append('datum', dateBox);
+                            params.append('betyg', gradeSelect);
+                            params.append('statusBetyg', statusBox);
+                            axios.post('http://localhost:8080/GradeWebService/resources/gradeform', params)
+                            .then(function (response) {
+                                console.log(response);
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                         
+                            }       
                     }
                 });
             </script>
