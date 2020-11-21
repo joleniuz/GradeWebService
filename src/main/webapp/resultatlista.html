@@ -80,11 +80,6 @@ and open the template in the editor.
                         </tr> 
                     </tbody> 
                 </table>
-            <div id="test" v-for="counter in grades" v-if="counter.betyg === 'VG'"></div>
-            <div v-else-if="counter.betyg === 'G'"></div>
-            <div v-else-if="counter.betyg === 'U'"> </div>
-            <div v-else>{{counter}}</div>
-
        </div>
             <script>
               
@@ -132,10 +127,21 @@ and open the template in the editor.
                             var kurskod = document.getElementById("kurskod").innerHTML.toString();
                             var modul = document.getElementById("modul").innerHTML.toString();
                             var omdöme = document.getElementById("omdöme").innerHTML.toString();
-                            var namn = document.getElementById("namn").innerHTML.toString();
-                            var namn = document.getElementById("namn").innerHTML.toString();
                           
                             alert(persNr+" "+namn+" "+kurskod+" "+modul+" "+omdöme+" "+gradeSelect+" "+dateBox+" "+statusBox);
+                            axios.post('http://localhost:8080/GradeWebService/resources/gradeform',({ 
+                                params: { 
+                                persnr: persNr,
+                                namn: namn,
+                                modul: modul,
+                                kurskod: kurskod,
+                                statusBetyg: statusBox,
+                                datum: dateBox,
+                                betyg: gradeSelect,
+                                omdöme: omdöme
+                                }
+                            }))
+                            
                         }
                     }
                 });
