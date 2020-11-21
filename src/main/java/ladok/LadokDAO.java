@@ -51,8 +51,7 @@ public class LadokDAO {
                 grade.setDatum(rs.getString(6));
                 grade.setBetyg(rs.getString(7));
                 grade.setStatus(rs.getString(8));
-                grades.add(grade);
-                  
+                grades.add(grade);    
             }
             
         }catch(Exception e){
@@ -61,9 +60,10 @@ public class LadokDAO {
         return grades;
     }
     
-    public LadokDTO getGradeByPersNr(String persNr){
+    public List <LadokDTO> getGradeByPersNr(String persNr){
         
         LadokDTO grade = null;
+        List <LadokDTO> grades = new ArrayList<LadokDTO>();
         JdbcCon db = new JdbcCon();
         
         try{
@@ -73,7 +73,7 @@ public class LadokDAO {
             ps.setString(1, persNr);
             rs = ps.executeQuery();
             
-            if(rs.next()){
+            while(rs.next()){
                 grade = new LadokDTO();
                 grade.setPersonNr(rs.getString(2));
                 grade.setNamn(rs.getString(3));
@@ -82,14 +82,14 @@ public class LadokDAO {
                 grade.setDatum(rs.getString(6));
                 grade.setBetyg(rs.getString(7));
                 grade.setStatus(rs.getString(8));
-                
+                grades.add(grade);
             }
 
         }catch(Exception e){
             e.printStackTrace();
         }
         
-        return grade;
+        return grades;
     }
         public List<LadokDTO> getGradesByCourse(String kurskod){
         
