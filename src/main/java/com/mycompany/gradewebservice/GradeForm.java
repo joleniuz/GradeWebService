@@ -6,6 +6,7 @@
 package com.mycompany.gradewebservice;
 
 import canvas.CanvasDAO;
+import canvas.CanvasDTO;
 import canvas.StudentGradeDTO;
 import java.net.URI;
 import java.util.List;
@@ -14,7 +15,9 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -32,8 +35,26 @@ public class GradeForm {
         return Response.ok(grades).build();
     }
     
+    //exempel: http://localhost:8080/GradeWebService/resources/gradeform/student?studentid=joeele-8
+    @Path("/student")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStudentByQueryParam(@QueryParam("studid") String studentId){
+        StudentGradeDTO student = new CanvasDAO().getStudentById(studentId);
+        return Response.ok(student).build();
+    }
+    
+    //exempel: http://localhost:8080/GradeWebService/resources/gradeform/joeele-8
+    @Path("{studentid}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStudentById(@PathParam("studentid") String studentId){
+        StudentGradeDTO student = new CanvasDAO().getStudentById(studentId);
+        return Response.ok(student).build();
+    }
+    
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postStudentGradesForm(@FormParam("persnr") String persNr,
             @FormParam("namn") String namn, @FormParam("kurskod") String kurskod,
@@ -48,6 +69,7 @@ public class GradeForm {
         }
     }
     
+
     public static String stringToJson(String persNr, String namn, String kurskod, String modul, String datum, String betyg, String statusBetyg ) {
         return String.format("{\"persNr\":\"%s\",\"namn\":\"%s\",\"kurskod\":\"%s\",\"modul\":\"%s\",\"datum\":\"%s\",\"betyg\":\"%s\",\"statusBetyg\":\"%s\"}",
                              persNr, namn, kurskod, modul, datum, betyg, statusBetyg);

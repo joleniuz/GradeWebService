@@ -65,9 +65,9 @@ public class CanvasDAO {
         return students;
     }
     
-    public CanvasDTO getStudentById(String studentId){
+    public StudentGradeDTO getStudentById(String studentId){
         
-        CanvasDTO student = null;
+        StudentGradeDTO student = null;
         JdbcCon db = new JdbcCon();
         
         try{
@@ -78,8 +78,8 @@ public class CanvasDAO {
             rs = ps.executeQuery();
             
             if(rs.next()){
-                student = new CanvasDTO();
-                student.setStudentId(rs.getString(2));
+                student = new StudentGradeDTO();  
+                student.setStudId(rs.getString(2));
                 student.setOmdöme(rs.getString(3));
                 student.setNamn(rs.getString(4));
                 student.setKurskod(rs.getString(5));
