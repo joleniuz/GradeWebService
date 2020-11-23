@@ -1,38 +1,165 @@
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
     <head>
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+       <title>Betygprutt</title>
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+       <meta name="viewport" content="width=device=width, initial-scale=1.0"/>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-        <title>Home</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"></script>
     </head>
-<body>
-           <p> Välj åtgärd: </p>
-      <div id="app">
- <ul>
-   <li v-for="x in todos">
-   {{ x.text }}
-   </li>
-  </ul>
-</div>
+    <body>   
+        <h1> Ingos rättningstjänst </h1>
+        <div class="w3-container" id="app">
+            
+            <p>Kurskod:&nbsp;&nbsp;&nbsp;&nbsp;Modul:</p>
+            <p>
+                <input type="text" name="kursKod" value="" size="6" id="kursval"/>
+                <input type="text" name="modul" value="" size="6" id="modulval"/>
+                <button v-on:click="loadData()">Ladda Data</button>
+            </p>
 
-<script>
-myObject = new Vue({
-    el: '#app',
-    data: {
-    todos: [
-        { text: 'Learn JavaScript' },
-        { text: 'Learn Vue.js' },
-        { text: 'Build Something Awesome' }
-        ]
-    }
-})
-</script>
-        <p> Välj åtgärd: </p>
-    <button 
-        onclick="document.location='http://localhost:8080/GradeWebService/Registreraresultat.html'">Registrera resultat</button>
-    <button 
-        onclick="document.location='http://localhost:8080/GradeWebService/resultatlista.html'">Visa resultatlista</button>
-</body>
+                    <table class="w3-table w3-striped w3-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Personnummer</th>
+                                <th scope="col">Namn</th>
+                                <th scope="col">Kurskod</th>
+                                <th scope="col">Modul</th>
+                                <th scope="col">Omdöme</th>
+                                <th scope="col">Betyg</th>
+                                <th scope="col">Datum</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="counter in grades" v-if="counter.betyg === 'U' || counter.betyg === 'G' || counter.betyg === 'VG'">
+                                <td>{{ counter.persNr }}</td>
+                                <td>{{ counter.namn }}</td>
+                                <td>{{ counter.kurskod }}</td>
+                                <td>{{ counter.modul }}</td>
+                                <td>{{ counter.omdöme }}</td>
+                                <td>{{ counter.betyg }}</td>
+                                <td>{{ counter.datum }}</td>
+                                <td>{{ counter.statusBetyg }}</td>
+                            </tr>
+                            <tr v-else>
+                                <td id="persNr">{{counter.persNr}}</td>
+                                <td id="namn">{{ counter.namn}}</td>
+                                <td id="kurskod">{{ counter.kurskod}}</td>
+                                <td id="modul">{{ counter.modul}}</td>
+                                <td id="omdöme">{{ counter.omdöme}}</td>
+                                <td id="betyg">
+                                    <label for="dropdownGrade">Ej betygsatt</label>
+                                    <select name="dropdownGrade" id="dropdownGrade">
+                                        <option>Välj Betyg</option>
+                                        <option>U</option>
+                                        <option>G</option>
+                                        <option>VG</option>
+                                    </select>
+                                </td>
+                                <td id="datum">
+                                    <input type="text" name="date" size="10" maxlength="10" placeholder="åååå-mm-dd" id="dateBox"/>
+                                </td>
+                                <td id="statusBetyg">
+                                    <select name="dropdownStatus" id="dropdownStatus">
+                                        <option>Välj status</option>
+                                        <option>Attesterad</option>
+                                        <option>Klarmarkerad</option>
+                                        <option>Utkast</option>
+                                    </select>
+
+                                    <button v-on:click="getValues();loadData();">Skicka in</button>
+                                </td>
+
+                            </tr> 
+                        </tbody> 
+                    </table>
+       </div>
+            <script>
+              
+                new Vue({
+                    el: '#app',
+                    data: {
+                        grades: []
+                    },
+                    methods: {
+                        loadData: function(){
+                            var kursval = document.getElementById("kursval").value;
+                            var modulval = document.getElementById("modulval").value;
+                            axios.get('http://localhost:8080/GradeWebService/resources/gradeform/kurs',{
+                                params:{
+                                kurskod: kursval,
+                                modul: modulval
+                                }
+                                })
+                                .then(response => {
+                                this.grades =response.data;
+                                console.log(response);
+                                })
+                                .catch(error => {
+                                console.log(error);
+                                });
+                                },
+                        loadCourse: function(){
+                            axios.get('http://localhost:8080/GradeWebService/resources/ladok/d0031n')
+                                    .then(response => {
+                                        this.grades =response.data;
+                                console.log(response);
+                            })
+                             .catch(error => {
+                                console.log(error);
+                            });
+                        },
+                        insertGrade: function(){
+                            axios.get('http://localhost:8080/GradeWebService/resources/ladok/d0031n')
+                                    .then(response => {
+                                        this.grades =response.data;
+                                console.log(response);
+                            })
+                             .catch(error => {
+                                console.log(error);
+                            });
+                        }, getValues: function(){
+                            var dateBox = document.getElementById("dateBox").value;
+                            var statusBox = document.getElementById("dropdownStatus").value;
+                            var gradeSelect = document.getElementById("dropdownGrade").value;
+                            var namn = document.getElementById("namn").innerHTML.toString();
+                            var persNr = document.getElementById("persNr").innerHTML.toString();
+                            var kurskod = document.getElementById("kurskod").innerHTML.toString();
+                            var modul = document.getElementById("modul").innerHTML.toString();
+                            var omdöme = document.getElementById("omdöme").innerHTML.toString();
+                          
+                            
+                            
+                            const params = new URLSearchParams();                      
+                            params.append('persnr', persNr);
+                            params.append('namn', namn);
+                            params.append('kurskod', kurskod);
+                            params.append('modul', modul);
+                            params.append('datum', dateBox);
+                            params.append('betyg', gradeSelect);
+                            params.append('statusBetyg', statusBox);
+                            axios.post('http://localhost:8080/GradeWebService/resources/gradeform', params)
+                            .then(function (response) {
+                                console.log(response);
+                                if (gradeSelect === "Välj betyg" || statusBox === "Välj status" || dateBox === ""){
+                                    alert("Det gick inte att uppdatera, kontrollera uppgifterna och försök igen")
+                                }else{
+                                    alert("Inlagt i databasen:\n"+persNr+" "+namn+" "+kurskod+" "+modul+" "+gradeSelect+" "+dateBox+" "+statusBox);
+                                }
+                                
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                            }
+                    }
+                });
+            </script>
+    </body>
 </html>
-
