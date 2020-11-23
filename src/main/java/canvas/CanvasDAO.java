@@ -23,14 +23,16 @@ public class CanvasDAO {
     private final String GET_STUDENTS_BY_ID = "SELECT * FROM canvas WHERE studentid=?";
     private final String ADD_STUDENT = "INSERT INTO canvas (StudentId, Omdöme, Namn, Kurskod, Modul)"
             + "VALUES(?, ?, ?, ?, ?) ";
-    private final String GET_STUDENT_GRADES = "SELECT studentitsdb.studentits.idpersonnr, studentitsdb.studentits.studentid, studentitsdb.studentits.namn, canvasdb.canvas.kurskod, canvasdb.canvas.modul, canvasdb.canvas.omdöme\n" +
-"FROM canvasdb.canvas LEFT JOIN studentitsdb.studentits ON studentitsdb.studentits.studentid=canvasdb.canvas.studentid;";
     private final String ADD_STUDENT_GRADE = "INSERT INTO ladokdb.ladok (persnr, namn, kurskod, modul, datum, betyg, status)\n" +
 "VALUES(?, ?, ?, ?, ?, ?, ?);";
-    private final String GET_STUDENT_GRADES2 = "SELECT studentitsdb.studentits.idpersonnr, studentitsdb.studentits.studentid, studentitsdb.studentits.namn,\n"
+    private final String GET_STUDENT_GRADES = "SELECT studentitsdb.studentits.idpersonnr, studentitsdb.studentits.studentid, studentitsdb.studentits.namn,\n"
             + "canvasdb.canvas.kurskod, canvasdb.canvas.modul, canvasdb.canvas.omdöme,\n"
             + "ladokdb.ladok.Betyg, ladokdb.ladok.Datum, ladokdb.ladok.status FROM canvasdb.canvas LEFT JOIN studentitsdb.studentits ON studentitsdb.studentits.studentid=canvasdb.canvas.studentid\n"
             + "LEFT JOIN ladokdb.ladok ON studentitsdb.studentits.idPersonNr= ladokdb.ladok.PersNr;";
+    private final String GET_STUDENT_GRADES_BY_ID = "SELECT studentitsdb.studentits.idpersonnr, studentitsdb.studentits.studentid, studentitsdb.studentits.namn, canvasdb.canvas.kurskod, canvasdb.canvas.modul, canvasdb.canvas.omdöme,\n" +
+"ladokdb.ladok.Betyg, ladokdb.ladok.Datum, ladokdb.ladok.status FROM canvasdb.canvas LEFT JOIN studentitsdb.studentits ON studentitsdb.studentits.studentid=canvasdb.canvas.studentid\n" +
+"LEFT JOIN ladokdb.ladok ON studentitsdb.studentits.idPersonNr= ladokdb.ladok.PersNr WHERE canvasdb.canvas.kurskod =?;";
+    
     Connection con = null;
     //Connection con2 = null;
     PreparedStatement ps = null;
@@ -128,8 +130,45 @@ public class CanvasDAO {
         try{
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             con = db.openConnection("canvasdb");
-            ps = con.prepareStatement(GET_STUDENT_GRADES2);
+            ps = con.prepareStatement(GET_STUDENT_GRADES);
             rs = ps.executeQuery();
+            
+            while(rs.next()){
+                studentGrade = new StudentGradeDTO();
+                studentGrade.setPersNr(rs.getString(1));
+                studentGrade.setStudId(rs.getString(2));
+                studentGrade.setNamn(rs.getString(3));
+                studentGrade.setKurskod(rs.getString(4));
+                studentGrade.setModul(rs.getString(5));
+                studentGrade.setOmdöme(rs.getString(6));
+                studentGrade.setBetyg(rs.getString(7));
+                studentGrade.setDatum(rs.getString(8));
+                studentGrade.setStatusBetyg(rs.getString(9));
+                studentGrades.add(studentGrade);
+
+                  
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+                
+        return studentGrades;     
+    }
+    
+        public List<StudentGradeDTO> getStudentGradesByCourse(String kurskod){
+        
+        StudentGradeDTO studentGrade = null;
+        List<StudentGradeDTO> studentGrades = new ArrayList<StudentGradeDTO>();
+        JdbcCon db = new JdbcCon();
+        
+        try{
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            con = db.openConnection("canvasdb");
+            ps = con.prepareStatement(GET_STUDENT_GRADES_BY_ID);
+            ps.setString(1, kurskod);
+            rs = ps.executeQuery();
+            System.out.println("hej");
             
             while(rs.next()){
                 studentGrade = new StudentGradeDTO();

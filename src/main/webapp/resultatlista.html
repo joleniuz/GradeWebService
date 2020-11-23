@@ -18,13 +18,11 @@ and open the template in the editor.
         onclick="document.location='http://localhost:8080/GradeWebService/index.html'"><-Tillbaka</button>
         <h1> Vue.js - JavaScript Ramverk </h1>
         <div class="w3-container" id="app">
-            <select name="Val av kurs">
-                <option>Ladda in allt</option>
-                <option>D0031N</option>
-                <option>Placeholder3</option>
-            </select>
-            <p><button v-on:click="loadData()">Ladda Data</button></p>
-            <p><button v-on:click="loadCourse()">Ladda Kurs D0031N</button></p>
+            
+            <p>
+                <input type="text" name="kursKod" value="" size="6" id="kursval"/>
+                <button v-on:click="loadData()">Ladda Data</button>
+            </p>
                     <table class="w3-table w3-striped w3-bordered">
                         <thead>
                             <tr>
@@ -89,15 +87,20 @@ and open the template in the editor.
                     },
                     methods: {
                         loadData: function(){
-                            axios.get('http://localhost:8080/GradeWebService/resources/gradeform')
-                                    .then(response => {
-                                        this.grades =response.data;
+                            var kursval = document.getElementById("kursval").value;
+                            axios.get('http://localhost:8080/GradeWebService/resources/gradeform/kurs',{
+                                params:{
+                                kurskod: kursval
+                                }
+                                })
+                                .then(response => {
+                                this.grades =response.data;
                                 console.log(response);
-                            })
-                             .catch(error => {
+                                })
+                                .catch(error => {
                                 console.log(error);
-                            });
-                        },
+                                });
+                                },
                         loadCourse: function(){
                             axios.get('http://localhost:8080/GradeWebService/resources/ladok/d0031n')
                                     .then(response => {
@@ -143,7 +146,6 @@ and open the template in the editor.
                             }).catch(function (error) {
                                 console.log(error);
                             });
-                         
                             }       
                     }
                 });

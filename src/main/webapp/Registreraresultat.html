@@ -104,9 +104,9 @@ function performGetRequest2(){
   var Id = document.getElementById('studentId').value;
   resultElement.innerHTML = '';
 
-  axios.get('http://localhost:8080/GradeWebService/resources/gradeform/student', {
+  axios.get('http://localhost:8080/GradeWebService/resources/gradeform/kurs', {
     params: {
-      studid: Id
+      kurskod: Id
     }
   })
     .then(function (response) {
