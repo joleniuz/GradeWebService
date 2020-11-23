@@ -44,12 +44,13 @@ public class GradeForm {
         return Response.ok(student).build();
     }
     
-    //exempel: http://localhost:8080/GradeWebService/resources/gradeform/kurs?kurskod=d0031n
+    //exempel: http://localhost:8080/GradeWebService/resources/gradeform/kurs?kurskod=d0031n&modul=tentamen
     @Path("/kurs")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCourseByQueryParam(@QueryParam("kurskod") String kurskod){
-        List <StudentGradeDTO> grades = new CanvasDAO().getStudentGradesByCourse(kurskod);
+    public Response getCourseByQueryParam(@QueryParam("kurskod") String kurskod,
+            @QueryParam("modul") String modul){
+        List <StudentGradeDTO> grades = new CanvasDAO().getStudentGradesByCourse(kurskod, modul);
         return Response.ok(grades).build();
     }
     
@@ -62,13 +63,13 @@ public class GradeForm {
 //        return Response.ok(student).build();
 //    }
     
-    @Path("{kurskod}")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getStudentById(@PathParam("kurskod") String kurskod){
-        List <StudentGradeDTO> grades = new CanvasDAO().getStudentGradesByCourse(kurskod);
-        return Response.ok(grades).build();
-    }
+//    @Path("{kurskod}")
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response getStudentById(@PathParam("kurskod") String kurskod){
+//        List <StudentGradeDTO> grades = new CanvasDAO().getStudentGradesByCourse(kurskod);
+//        return Response.ok(grades).build();
+//    }
     
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)

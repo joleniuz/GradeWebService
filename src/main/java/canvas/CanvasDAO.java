@@ -31,7 +31,7 @@ public class CanvasDAO {
             + "LEFT JOIN ladokdb.ladok ON studentitsdb.studentits.idPersonNr= ladokdb.ladok.PersNr;";
     private final String GET_STUDENT_GRADES_BY_ID = "SELECT studentitsdb.studentits.idpersonnr, studentitsdb.studentits.studentid, studentitsdb.studentits.namn, canvasdb.canvas.kurskod, canvasdb.canvas.modul, canvasdb.canvas.omdöme,\n" +
 "ladokdb.ladok.Betyg, ladokdb.ladok.Datum, ladokdb.ladok.status FROM canvasdb.canvas LEFT JOIN studentitsdb.studentits ON studentitsdb.studentits.studentid=canvasdb.canvas.studentid\n" +
-"LEFT JOIN ladokdb.ladok ON studentitsdb.studentits.idPersonNr= ladokdb.ladok.PersNr WHERE canvasdb.canvas.kurskod =?;";
+"LEFT JOIN ladokdb.ladok ON studentitsdb.studentits.idPersonNr= ladokdb.ladok.PersNr WHERE canvasdb.canvas.kurskod = ? AND canvasdb.canvas.modul = ?;";
     
     Connection con = null;
     //Connection con2 = null;
@@ -156,7 +156,7 @@ public class CanvasDAO {
         return studentGrades;     
     }
     
-        public List<StudentGradeDTO> getStudentGradesByCourse(String kurskod){
+        public List<StudentGradeDTO> getStudentGradesByCourse(String kurskod, String modul){
         
         StudentGradeDTO studentGrade = null;
         List<StudentGradeDTO> studentGrades = new ArrayList<StudentGradeDTO>();
@@ -167,6 +167,7 @@ public class CanvasDAO {
             con = db.openConnection("canvasdb");
             ps = con.prepareStatement(GET_STUDENT_GRADES_BY_ID);
             ps.setString(1, kurskod);
+            ps.setString(2, modul);
             rs = ps.executeQuery();
             System.out.println("hej");
             
@@ -182,7 +183,6 @@ public class CanvasDAO {
                 studentGrade.setDatum(rs.getString(8));
                 studentGrade.setStatusBetyg(rs.getString(9));
                 studentGrades.add(studentGrade);
-
                   
             }
             
